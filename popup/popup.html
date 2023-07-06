@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popup</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <span class="title">Внеси все сайты которые необходимо блокировать во время работы:</span>
+            <span class="error-text-block"></span>
+            <input class="input-link" type="text" name="site-link" id="site-link"
+                placeholder="Вставь ссылку и нажми Enter">
+
+            <label for="list-on" class="checkbox-list">
+                <span>Включить блокировку</span>
+                <input type="checkbox" name="list-on" id="list-on" class="switch">
+            </label>
+            <div class="output-site-link" hidden>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+        <!-- <span>По вопросам писать:<a href="https://t.me/mikhail_one" target="_blank">мне</a></span> -->
+    </footer>
+    <script src="popup.js"></script>
+</body>
+
+</html>
