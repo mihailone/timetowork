@@ -31,7 +31,7 @@ function checkItemForDB(db, item) {
 }
 
 function checkLS() {
-    if (LS.getItem('blockSiteList')) {
+    if (LS.getItem('blockSiteList') && LS.getItem('chekedOpen') === 'true') {
         const result = JSON.parse(LS.getItem('blockSiteList'));
         for (let key in result) {
             blockSiteList[key] = result[key];
@@ -64,7 +64,9 @@ function saveLS() {
     LS.setItem('blockSiteList', JSON.stringify(blockSiteList));
 }
 function printBlockSiteList(text, id) {
+    // получает favicons, но замедляет сильно первый запуск popup
     let link = `http://www.google.com/s2/favicons?domain=${cleanUp(text)}&sz=128`;
+    // fav - logo.svg
     output.innerHTML += `
         <div class="link-container" id="link-${id}" title="${text}" data-link-id="${id}">
             <span class="f-icon">
@@ -91,13 +93,14 @@ onOfList.addEventListener('input', (e) => {
         output.removeAttribute('hidden', 'true');
         LS.setItem('chekedOpen', true);
         enableBlocking.status = true;
+        checkLS();
     } else {
         output.setAttribute('hidden', 'true');
         LS.setItem('chekedOpen', false);
         enableBlocking.status = false;
+        output.innerHTML = '';
     }
     send();
-    console.log(enableBlocking.status);
 })
 
 function cleanUp(url) {
@@ -115,6 +118,6 @@ function send() {
         key: blockSiteList,
         keyTwo: enableBlocking,
     }).then(() => {
-        console.log("Value is set");
+
     });
 }

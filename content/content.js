@@ -9,7 +9,7 @@ chrome.storage.local.get(["key", "keyTwo"]).then((result) => {
         if (cleanUp(window.location.href) === result.key[item] && status === 'true') {
             countdown();
             document.body.innerHTML = `
-                    <div class="time">
+                    <div class="extension-style-timer-container">
                     <h1>Время работать!</h1> 
                     <span>Возвращаю к работе через: 
                     <span class="countdown">${timer}</span>!
