@@ -6,7 +6,7 @@ const LS = localStorage;
 chrome.storage.local.get(["key", "keyTwo"]).then((result) => {
     let status = JSON.stringify(result.keyTwo.status);
     for (let item in result.key) {
-        if (cleanUp(window.location.href) === result.key[item] && status === 'true') {
+        if (searchWWW(cleanUp(window.location.href)) === result.key[item] && status === 'true') {
             countdown();
             document.body.innerHTML = `
                     <div class="extension-style-timer-container">
@@ -33,11 +33,22 @@ function countdown() {
     }, 1000);
 }
 
+function searchWWW(url) {
+    if (url.split('.')[0] === 'www') {
+        return `${url.split('.')[1]}.${url.split('.')[2]}`;
+    } else {
+        return url;
+    }
+}
+
 function cleanUp(url) {
-    var url = url.trim(url);
+    var url = url.trim();
+    console.log(url);
     if (url.search(/^https?\:\/\//) != -1)
         url = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i, "");
     else
         url = url.match(/^([^\/?#]+)(?:[\/?#]|$)/i, "");
     return url[1];
 }
+
+console.log(searchWWW(cleanUp(window.location.href)));

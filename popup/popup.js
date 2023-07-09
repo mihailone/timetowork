@@ -41,9 +41,9 @@ function checkLS() {
     }
 }
 window.addEventListener('keydown', (e) => {
-    let linkText = input.value.toLowerCase()
-    if ((e.code === 'Enter' || e.code === 'NumpadEnter') && cleanUp(linkText)) {
-        const test = checkItemForDB(blockSiteList, cleanUp(linkText))
+    let linkText = input.value.trim().toLowerCase()
+    if ((e.code === 'Enter' || e.code === 'NumpadEnter') && searchWWW(cleanUp(linkText))) {
+        const test = checkItemForDB(blockSiteList, searchWWW(cleanUp(linkText)))
         if (test) {
             errorTextBlock.textContent = 'Такая ссылка уже есть!';
             input.value = '';
@@ -52,7 +52,7 @@ window.addEventListener('keydown', (e) => {
             }, 10000)
         } else {
             printBlockSiteList(cleanUp(linkText), siteID);
-            blockSiteList[siteID] = cleanUp(linkText);
+            blockSiteList[siteID] = searchWWW(cleanUp(linkText));
             siteID++;
             input.value = '';
             saveLS();
@@ -103,8 +103,16 @@ onOfList.addEventListener('input', (e) => {
     send();
 })
 
+function searchWWW(url) {
+    if (url.split('.')[0] === 'www') {
+        return `${url.split('.')[1]}.${url.split('.')[2]}`;
+    } else {
+        return url;
+    }
+}
+
 function cleanUp(url) {
-    var url = url.trim(url);
+    var url = url.trim();
     if (url.search(/^https?\:\/\//) != -1)
         url = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i, "");
     else
