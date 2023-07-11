@@ -12,7 +12,6 @@ const enableBlocking = {
 }
 const appStatus = {
     removeNotification: false,
-    html: `<span class="title">Внеси все сайты которые необходимо блокировать во время работы:</span>`,
 }
 let siteID = 0;
 
@@ -161,7 +160,8 @@ document.querySelector('.popup-content').addEventListener('click', (e) => {
         document.querySelector('.title').setAttribute('hidden', true);
         appStatus.removeNotification = true;
         LS.setItem('removeNotification', true);
-    } else if (e.target.closest('#instruction').checked === false) {
+    }
+    if (e.target.closest('#instruction') && e.target.closest('#instruction').checked === false) {
         document.querySelector('.title').removeAttribute('hidden', true);
         appStatus.removeNotification = false;
         LS.setItem('removeNotification', false);
