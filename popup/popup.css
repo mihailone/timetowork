@@ -123,6 +123,7 @@ footer {
     left: 0;
     width: 100vw;
     height: 100vh;
+    overflow-y: scroll;
 }
 
 .substrate {
@@ -132,6 +133,7 @@ footer {
     width: 100vw;
     height: 100vh;
     background-color: hsl(0deg 0% 0% / 50%);
+    overflow-y: scroll;
 }
 
 .popup-content {
