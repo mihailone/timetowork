@@ -6,8 +6,12 @@ const output = document.querySelector('.output-site-link');
 const onOfList = document.querySelector('#list-on');
 const errorTextBlock = document.querySelector('.error-text-block');
 const blockSiteList = {};
+const popupOpen = document.querySelector('.settings-popup');
 const enableBlocking = {
     status: false,
+}
+const appStatus = {
+    removeNotification: false,
 }
 let siteID = 0;
 
@@ -19,6 +23,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
         output.removeAttribute('hidden', 'true');
     } else {
         enableBlocking.status = false;
+    }
+    if (LS.getItem('removeNotification') && LS.getItem('removeNotification') === 'true') {
+        appStatus.removeNotification = true;
+        document.querySelector('#instruction').checked = true;
+        document.querySelector('.title').remove();
+    } else {
+        appStatus.removeNotification = false;
+        document.querySelector('#instruction').checked = false;
     }
 })
 
@@ -51,12 +63,20 @@ window.addEventListener('keydown', (e) => {
                 errorTextBlock.textContent = '';
             }, 10000)
         } else {
-            printBlockSiteList(cleanUp(linkText), siteID);
-            blockSiteList[siteID] = searchWWW(cleanUp(linkText));
-            siteID++;
-            input.value = '';
-            saveLS();
-            send();
+            if (enableBlocking.status === true) {
+                printBlockSiteList(cleanUp(linkText), siteID);
+                blockSiteList[siteID] = searchWWW(cleanUp(linkText))
+                siteID++;
+                input.value = '';
+                saveLS();
+                send();
+            } else {
+                errorTextBlock.textContent = 'Для начала включите блокировку!';
+                input.value = '';
+                setTimeout(function () {
+                    errorTextBlock.textContent = '';
+                }, 10000)
+            }
         }
     }
 })
@@ -129,3 +149,21 @@ function send() {
 
     });
 }
+
+popupOpen.addEventListener('click', (e) => {
+    document.querySelector('.settings-popup-container').removeAttribute('hidden', true);
+
+})
+document.querySelector('.popup-content').addEventListener('click', (e) => {
+    if (e.target.closest('#instruction') && e.target.closest('#instruction').checked === true) {
+        document.querySelector('.title').remove();
+        appStatus.removeNotification = true;
+        LS.setItem('removeNotification', true);
+    } else if (e.target.closest('#instruction').checked === false) {
+        appStatus.removeNotification = false;
+        LS.setItem('removeNotification', false);
+    }
+})
+document.querySelector('.close-popup').addEventListener('click', (e) => {
+    document.querySelector('.settings-popup-container').setAttribute('hidden', true);
+})

@@ -1,11 +1,53 @@
-.extension-style-timer-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100dvw;
-    height: 100dvh;
-    background-color: #333;
-    color: #fff;
-    font-size: 3vh;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.extension-container {
+    line-height: normal;
+    font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    background-color: #fff;
+
+    & main {
+        max-width: 1280px;
+        width: 100%;
+        margin-inline: auto;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+
+        .extension-big-text {
+            margin: 0;
+            font-size: 3.5vw;
+            font-weight: 500;
+        }
+
+        .extension-medium-text {
+            margin: 0;
+            font-size: 2vw;
+        }
+    }
 }
+
+.extension-image {
+    position: fixed;
+    right: -150px;
+    bottom: -150px;
+    width: 500px;
+    height: 500px;
+
+    & svg {
+        fill: red;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .extension-container {
+        background-color: #1f1f1f;
+        color: #c4c7c5;
+    }
+
+}
+
+@media (prefers-color-scheme: light) {}

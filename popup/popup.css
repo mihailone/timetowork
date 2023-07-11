@@ -17,7 +17,7 @@ body {
     font-size: 14px;
     text-align: center;
     padding: 10px;
-    border-radius: 10px 10px 4px 4px;
+    border-radius: 10px;
     background-color: #00faff45;
     margin-bottom: 5px;
 }
@@ -27,8 +27,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
-    gap: 15px;
+    gap: 10px;
 
     &:hover {
         cursor: pointer;
@@ -43,7 +42,7 @@ body {
 .input-link {
     width: 100%;
     padding: 5px 15px;
-    border-radius: 4px 4px 10px 10px;
+    border-radius: 10px;
     border: 0;
     background-color: #eaf1fb;
     font: 13px/27px Roboto, Arial, sans-serif;
@@ -110,6 +109,67 @@ footer {
     margin-bottom: 5px;
     font-weight: 500;
     font-size: 14px;
+}
+
+/*setting popup*/
+.control-wrapper {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.settings-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.substrate {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsl(0deg 0% 0% / 50%);
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 4px;
+    /* height: 100vh; */
+}
+
+.settings-popup {
+    margin-left: auto;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.popup-footer {
+    display: flex;
+    margin-top: 15px;
+}
+
+.close-popup {
+    margin-left: auto;
+    padding: 5px 10px;
+    border: 0;
+    background-color: #275efe;
+    color: #fff;
+    border-radius: 4px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+h4 {
+    margin: 0;
 }
 
 /*checkbox*/
