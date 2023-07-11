@@ -5,6 +5,7 @@
     font-family: 'Roboto', sans-serif;
     height: 100vh;
     background-color: #fff;
+    color: #333;
 
     & main {
         max-width: 1280px;
@@ -31,14 +32,38 @@
 }
 
 .extension-image {
+    animation:
+        extension-image-animated 2s infinite,
+        another-animation 1s;
     position: fixed;
     right: -150px;
     bottom: -150px;
     width: 500px;
     height: 500px;
+    background-color: red;
+    border-radius: 50%;
+    transition: all .2s ease-in-out;
+
 
     & svg {
-        fill: red;
+        fill: #fff;
+    }
+}
+
+@keyframes extension-image-animated {
+    0% {
+        box-shadow: 0 0 30px 10px red;
+        transform: scale(0.9);
+    }
+
+    50% {
+        box-shadow: 0 0 0px 0px red;
+        transform: scale(1);
+    }
+
+    100% {
+        box-shadow: 0 0 30px 10px red;
+        transform: scale(0.9);
     }
 }
 
