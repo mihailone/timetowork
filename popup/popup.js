@@ -12,8 +12,10 @@ const enableBlocking = {
 }
 const appStatus = {
     removeNotification: false,
+    linkInInput: false,
 }
 let siteID = 0;
+
 
 document.addEventListener('DOMContentLoaded', (e) => {
     checkLS();
@@ -21,6 +23,15 @@ document.addEventListener('DOMContentLoaded', (e) => {
         onOfList.checked = true;
         enableBlocking.status = true;
         output.removeAttribute('hidden', 'true');
+        chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, { type: "msg_from_popup" }, function (response) {
+                let testTrue = checkItemForDB(blockSiteList, response)
+                if (response == undefined || response == 'undefined' && testTrue) {
+                } else {
+                    input.value = response;
+                }
+            });
+        });
     } else {
         enableBlocking.status = false;
     }

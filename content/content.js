@@ -1,4 +1,16 @@
 'use strict';
+//seng current url to content.js
+const a = searchWWW(cleanUp(window.location.href))
+
+chrome.runtime.onMessage.addListener(
+    (request, sender, sendResponse) => {
+        if (request["type"] == 'msg_from_popup') {
+            sendResponse(a);
+        }
+        return true;
+    }
+);
+
 
 const html = `
 <div class="extension-container">
