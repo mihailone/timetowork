@@ -54,6 +54,14 @@ main {
     font-weight: 600;
 }
 
+input[type="text"]:disabled {
+    background: #ccc;
+}
+
+button:disabled {
+    background: #ccc;
+}
+
 .link-text {
     width: 215px;
     white-space: nowrap;
@@ -62,20 +70,32 @@ main {
 }
 
 .link-container {
+    transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1);
     width: 100%;
+    max-height: 32px;
+    height: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: 5px 8px 5px 8px;
+    border-radius: 8px;
     background-color: #f5f5f5;
-    margin-top: 10px;
 
     &:hover {
+        box-shadow: 0 0 0 1px #333;
+        cursor: pointer;
+
         .remove-link {
             transform: scale(1);
         }
     }
+}
+
+.output-site-link {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 
 .remove-link {
@@ -94,26 +114,26 @@ main {
 
     &:hover {
         cursor: pointer;
-        color: #fff;
-        background-color: rgb(102, 102, 102);
     }
 }
 
-.f-icon {
-    margin-right: 5px;
-}
+.f-icon {}
 
 footer {
     text-align: center;
 }
 
 .error-text-block {
-    border-radius: 4px;
+    margin-bottom: 5px;
+    border-radius: 10px;
     background-color: #ff000045;
     text-align: center;
-    margin-bottom: 5px;
     font-weight: 500;
     font-size: 14px;
+
+    & .error-text {
+        padding: 10px;
+    }
 }
 
 /*setting popup*/
@@ -128,6 +148,7 @@ footer {
     background-color: #fff;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 -1px 10px 0 rgb(51 51 51 / 10%);
 }
 
 .settings-popup-container {
@@ -137,6 +158,7 @@ footer {
     width: 100vw;
     height: 100vh;
     overflow-y: scroll;
+    z-index: 100;
 }
 
 .substrate {
@@ -158,15 +180,39 @@ footer {
     margin: 10px;
     border-radius: 4px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .settings-popup {
+    position: relative;
+    z-index: 5;
     margin-left: auto;
 
     &:hover {
         cursor: pointer;
+
+        &::after {
+            transform: scale(1);
+        }
+    }
+
+    &::after {
+        transition: all .1s ease-in-out;
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        width: 30px;
+        height: 30px;
+        background-color: #fff;
+        border-radius: 50%;
+        z-index: -1;
+        transform: scale(0);
     }
 }
+
 
 .popup-footer {
     display: flex;
@@ -188,6 +234,59 @@ footer {
 
 h4 {
     margin: 0;
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.button-add-and-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    max-height: 37px;
+    max-width: 37px;
+    width: 100%;
+    border-radius: 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    & svg {
+        fill: #fff;
+    }
+}
+
+.remove {
+    background-color: #f44336;
+    transition: all .15s ease-in-out;
+
+    &:hover {
+        box-shadow: rgba(244, 64, 52, 0.5) 0px 0px 0px 2px;
+    }
+}
+
+.add {
+    background-color: #9ccc65;
+    transition: all .15s ease-in-out;
+
+    &:hover {
+        box-shadow: hsl(88deg 50% 60% / 50%) 0px 0px 0px 2px;
+    }
+}
+
+.done {
+    background-color: #ffc107;
+    transition: all .15s ease-in-out;
+
+    &:hover {
+        box-shadow: rgb(255 193 7 / 50%) 0px 0px 0px 2px;
+    }
 }
 
 /*checkbox*/
