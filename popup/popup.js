@@ -4,11 +4,14 @@ const LS = localStorage;
 const input = document.querySelector('#site-link');
 const output = document.querySelector('.output-site-link');
 const onOfList = document.querySelector('#list-on');
+const listSpan = document.querySelector('.list-on-span');
 const linkInInput = document.querySelector('#link-in-input');
 const errorTextBlock = document.querySelector('.error-text-block');
 const title = document.querySelector('.title');
 const popupOpen = document.querySelector('.settings-popup');
 const addButton = document.querySelector('.button-add-and-delete');
+const popupContent = document.querySelector('.popup-content');
+const popupContainer = document.querySelector('.settings-popup-container');
 
 const blockSiteList = {};
 const appStatus = {
@@ -37,12 +40,14 @@ document.addEventListener('DOMContentLoaded', (e) => {
             linkInInput.checked = false;
         }
         if (appStatus.enableBlocking === true) {
+            listSpan.textContent = 'Выключить блокировку';
             output.setAttribute('hidden', 'true');
             onOfList.checked = true;
             input.removeAttribute('disabled', 'false');
             addButton.removeAttribute('disabled', 'true');
             checkLinkPage()
         } else {
+            listSpan.textContent = 'Включить блокировку';
             output.removeAttribute('hidden', 'true');
             onOfList.checked = false;
             input.setAttribute('disabled', 'true');
@@ -137,6 +142,8 @@ function removeElement(e) {
         saveLS();
         e.target.parentNode.remove(e.target.parentNode.classList.contains('link-container'));
         sendToContentJS();
+        addButtonStatus();
+        input.value = '';
     }
 }
 
@@ -192,6 +199,7 @@ linkInInput.addEventListener('click', (e) => {
 
 onOfList.addEventListener('input', (e) => {
     if (onOfList.checked === true) {
+        listSpan.textContent = 'Выключить блокировку';
         output.removeAttribute('hidden', 'true');
         appStatus.enableBlocking = true;
         input.removeAttribute('disabled', 'true');
@@ -201,6 +209,7 @@ onOfList.addEventListener('input', (e) => {
         sendToContentJS();
         checkLinkPage();
     } else {
+        listSpan.textContent = 'Включить блокировку';
         input.value = '';
         output.setAttribute('hidden', 'true');
         appStatus.enableBlocking = false;
@@ -240,10 +249,9 @@ function sendToContentJS() {
 }
 
 popupOpen.addEventListener('click', (e) => {
-    document.querySelector('.settings-popup-container').removeAttribute('hidden', true);
-
+    popupContainer.removeAttribute('hidden', true);
 })
-document.querySelector('.popup-content').addEventListener('click', (e) => {
+popupContent.addEventListener('click', (e) => {
     if (e.target.closest('#instruction') && e.target.closest('#instruction').checked === true) {
         document.querySelector('.title').setAttribute('hidden', true);
         appStatus.removeNotification = true;
@@ -252,12 +260,11 @@ document.querySelector('.popup-content').addEventListener('click', (e) => {
         document.querySelector('.title').removeAttribute('hidden', true);
         appStatus.removeNotification = false;
     }
+    if (e.target.closest('.close-popup')) {
+        popupContainer.setAttribute('hidden', true);
+    }
     saveAppStatusToLS();
 })
-document.querySelector('.close-popup').addEventListener('click', (e) => {
-    document.querySelector('.settings-popup-container').setAttribute('hidden', true);
-})
-
 
 function addButtonStatus() {
     if (addButton.classList.contains('add')) {
@@ -271,7 +278,6 @@ function addButtonStatus() {
                             <path
                                 d="M479.825-200Q467-200 458.5-208.625T450-230v-220H230q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T230-510h220v-220q0-12.75 8.675-21.375 8.676-8.625 21.5-8.625 12.825 0 21.325 8.625T510-730v220h220q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T730-450H510v220q0 12.75-8.675 21.375-8.676 8.625-21.5 8.625Z" />
                         </svg>`;
-            checkLinkPage()
         }, 1000);
     }
     if (addButton.classList.contains('remove')) {
@@ -286,7 +292,6 @@ function addButtonStatus() {
                             <path
                                 d="M479.825-200Q467-200 458.5-208.625T450-230v-220H230q-12.75 0-21.375-8.675-8.625-8.676-8.625-21.5 0-12.825 8.625-21.325T230-510h220v-220q0-12.75 8.675-21.375 8.676-8.625 21.5-8.625 12.825 0 21.325 8.625T510-730v220h220q12.75 0 21.375 8.675 8.625 8.676 8.625 21.5 0 12.825-8.625 21.325T730-450H510v220q0 12.75-8.675 21.375-8.676 8.625-21.5 8.625Z" />
                         </svg>`;
-            checkLinkPage()
         }, 1000);
     }
 }
